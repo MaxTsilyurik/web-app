@@ -10,15 +10,36 @@
 </head>
 <body class="text-center">
 <form class="form-login">
-    <h1 class="h3 mb-3 font-weight-normal">Авторизация</h1>
-    <label for="inputEmail" class="sr-only">Логин</label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Логин" required autofocus>
+    <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
+
+    <label for="formName" class="sr-only">Имя</label>
+    <input type="text" class="form-control" id="formName" placeholder="Имя" required>
+
+    <label for="formSecondName" class="sr-only">Имя</label>
+    <input type="text" class="form-control" id="formSecondName" placeholder="Фамилия" required>
+
+
+    <label class="sr-only" for="inlineFormCustomSelect">Preference</label>
+    <select class="custom-select form-control" id="inlineFormCustomSelect">
+        <option selected>Пол</option>
+        <option value="1">Женский</option>
+        <option value="2">Мужской</option>
+    </select>
+
+    <label for="inputEmail" class="sr-only">Почта</label>
+    <input type="email" id="inputEmail" class="form-control" placeholder="email@example.com" required autofocus>
+
     <label for="inputPassword" class="sr-only">Пароль</label>
     <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+    <label for="inputPasswordRepeat" class="sr-only">Пароль</label>
+    <input type="password" id="inputPasswordRepeat" class="form-control" placeholder="Повторите пароль" required>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Регистрация</button>
     <p class="mt-5 mb-3 text-muted">&copy; telegraph 2020</p>
+
 </form>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
