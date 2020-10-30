@@ -1,0 +1,11 @@
+.bg-custom-2{
+    background-image: linear-gradient(5deg, #13547a 50%, #80d0c7 150%);
+}
+
+.form-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background-image: linear-gradient(5deg, #1778b3 0%, #aef1e9 150%);
+}
