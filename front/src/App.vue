@@ -2,12 +2,12 @@
   <v-app>
     <header>
       <v-card tile class="overflow-hidden">
-        <v-content>
+        <v-main>
           <v-app-bar dense
                      fixed
                      class="custom_nav_bar">
 
-            <v-toolbar-title style="cursor: pointer; color:white;" @click="$router.push('/')">
+            <v-toolbar-title style="cursor: pointer; color:white;">
               Telegraph
             </v-toolbar-title>
 
@@ -21,37 +21,22 @@
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </v-app-bar>
-        </v-content>
+        </v-main>
       </v-card>
     </header>
-
-    <v-main class="v-main grey lighten-3" data-booted="true" style="padding: 20px">
-      <v-container>
-        <v-row>
-          <v-col class="col-sm-2 col-12">
-
-          </v-col>
-          <v-col class="col-sm-8 col-8">
-            <PostCart></PostCart>
-            <PostCart></PostCart>
-            <PostCart></PostCart>
-            <PostCart></PostCart>
-            <PostCart></PostCart>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
+    <v-content class="v-main grey lighten-3" data-booted="true" style="padding: 20px">
+      <router-view></router-view>
+    </v-content>
   </v-app>
 </template>
 
 <script>
-import PostCart from "@/components/posts/PostCart";
 
 export default {
   name: 'App',
 
   components: {
-    PostCart
+
   },
 
   data: () => ({

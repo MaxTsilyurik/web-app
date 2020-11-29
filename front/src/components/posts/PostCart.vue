@@ -1,9 +1,9 @@
 <template>
   <v-card
-      class="my-2"
+      class="my-5"
       color="white"
       dark
-      max-width="600px"
+      max-width="700px"
   >
     <v-card-title>
       <v-icon
@@ -18,7 +18,7 @@
     </v-card-title>
 
     <v-card-text class="headline" style="color: black">
-      "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as
+      "Turns out semicolon-less ;ld';sald';asld is easier and safer in TS because most gotcha edge cases are type invalid as
       well."
     </v-card-text>
 
@@ -40,7 +40,7 @@
             align="center"
             justify="end"
         >
-          <v-icon class="mr-1">
+          <v-icon class="mr-1" color="black">
             mdi-heart
           </v-icon>
           <span class="subheading mr-2">256</span>
@@ -58,6 +58,8 @@
 <script>
 export default {
   name: "PostCart"
+
+
 }
 </script>
 
