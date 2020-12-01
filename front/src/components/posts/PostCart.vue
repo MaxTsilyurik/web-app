@@ -33,7 +33,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>Evan You</v-list-item-title>
+          <v-list-item-title style="color: black">Evan You</v-list-item-title>
         </v-list-item-content>
 
         <v-row
@@ -43,12 +43,12 @@
           <v-icon class="mr-1" color="black">
             mdi-heart
           </v-icon>
-          <span class="subheading mr-2">256</span>
+          <span class="subheading mr-2" style="color: black">256</span>
           <span class="mr-1">·</span>
-          <v-icon class="mr-1">
+          <v-icon class="mr-1" style="color: black">
             mdi-share-variant
           </v-icon>
-          <span class="subheading">45</span>
+          <span class="subheading" style="color: black">45</span>
         </v-row>
       </v-list-item>
     </v-card-actions>

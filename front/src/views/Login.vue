@@ -13,22 +13,25 @@
         :rules="[rules.required, rules.min]"
         :type="show1 ? 'text' : 'password'"
         name="input-10-1"
-        label="Password"
+        label="Пароль"
         hint="At least 8 characters"
         counter
         @click:append="show1 = !show1"
     ></v-text-field>
-    <v-btn
-        style="position: relative;
+    <v-card-actions>
+      <v-btn
+          style="position: relative;
                 left: 50%;
                 transform: translate(-50%, 0);"
-        class="mr-4"
-        @click="submit"
-    >
-      Войти
-    </v-btn>
+          color="primary"
+          text
+          @click="submit"
+      >
+        Войти
+      </v-btn>
+    </v-card-actions>
     <p class="mt-5 mb-3 text-muted text-center">
-      <router-link  to="">
+      <router-link v-bind:to="{name: 'Register'}">
         Нет аккаунта?
       </router-link>
     </p>
@@ -49,10 +52,10 @@ export default {
       show1: false,
       email: '',
       password: '',
-      errors: {},
       rules: {
         min: v => v.length >= 8 || 'Min 8 characters',
       },
+      errors: {}
     }
   },
   methods: {
@@ -83,14 +86,14 @@ export default {
 
 <style scoped>
 .form-login {
-  background-color: white;
+  /*background-color: white;*/
   -ms-flex-align: center;
   align-items: center;
   width: 100%;
   max-width: 400px;
   padding: 15px;
   margin: auto;
-  border-radius: 15px;
+  /*border-radius: 15px;*/
   position: fixed;
   top: 50%;
   left: 50%;
@@ -98,4 +101,5 @@ export default {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+
 </style>

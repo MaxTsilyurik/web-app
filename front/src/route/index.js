@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from "@/views/Home";
 import Messages from "@/views/Messages";
 import Login from "@/views/Login";
+import Register from "@/views/Register";
 
 
 Vue.use(VueRouter)
@@ -25,7 +26,16 @@ const routes = [
         meta: {
             layout: 'login-layout'
         }
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        component: Register,
+        meta: {
+            layout: 'login-layout'
+        }
     }
+
 ]
 
 const router = new VueRouter({
