@@ -14,13 +14,8 @@ export default {
     },
     login(data) {
         localStorage.setItem('user', JSON.stringify(data))
-        this.id = data.id
-        this.name = data.name
-        this.secondName = data.secondName
-        this.email = data.email
-        this.accessToken = data.accessToken
-        this.gender = data.gender
-        this.image = data.image
+        console.log(localStorage.getItem('user'))
+        this.init(data)
     },
     logout() {
         localStorage.removeItem('user')
@@ -37,13 +32,17 @@ export default {
         let data = localStorage.getItem('user')
         if (data !== null && data !== '') {
             data = JSON.parse(data)
-            this.id = data.id
-            this.name = data.name
-            this.secondName = data.secondName
-            this.email = data.email
-            this.accessToken = data.accessToken
-            this.gender = data.gender
-            this.image = data.image
+            this.init(data)
         }
+    },
+    init(data) {
+        this.id = data.id
+        this.name = data.name
+        this.secondName = data.secondName
+        this.email = data.email
+        this.accessToken = data.accessToken
+        this.gender = data.gender
+        this.image = data.image
+        this.age = data.age
     }
 }

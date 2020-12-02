@@ -1,13 +1,12 @@
 <template>
   <v-layout row>
     <v-text-field
-        label="Что нового?"
-        placeholder="Write something"
+        class="mx-4"
+        placeholder="Что нового?"
         v-model="text"
+        style="max-width: 700px"
+        readonly
     />
-    <v-btn @click="save">
-      Save
-    </v-btn>
   </v-layout>
 </template>
 

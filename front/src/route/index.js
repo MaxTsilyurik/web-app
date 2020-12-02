@@ -4,6 +4,7 @@ import Home from "@/views/Home";
 import Messages from "@/views/Messages";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
+import ProfilePage from "@/views/Profile";
 
 
 Vue.use(VueRouter)
@@ -34,7 +35,13 @@ const routes = [
         meta: {
             layout: 'login-layout'
         }
+    },
+    {
+        path: '/profile',
+        name: 'User',
+        component: ProfilePage
     }
+
 
 ]
 

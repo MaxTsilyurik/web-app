@@ -1,5 +1,5 @@
 <template>
-  <form class="form-login">
+  <form class="form-login" @submit="submit">
     <h3 class="text-center">Авторизация</h3>
     <v-text-field
         v-model="email"
@@ -24,6 +24,7 @@
                 left: 50%;
                 transform: translate(-50%, 0);"
           color="primary"
+          type="submit"
           text
           @click="submit"
       >
@@ -62,12 +63,18 @@ export default {
     submit(e) {
       if (this.validate()) {
         const result = {
-          name: 'Иван Иванов',
+          id: 1,
+          name: 'Иван',
+          secondName: 'Иванов',
+          age: 20,
+          gender: 'Мужской',
           email: 'ivan@ya.ru',
+          image: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
           accessToken: 'jsdlf732649823709!ew98r#$432'
         }
         User.login(result)
-      }
+        console.log(User)
+       }
       e.preventDefault()
     },
     validate() {

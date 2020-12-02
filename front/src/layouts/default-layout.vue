@@ -8,7 +8,10 @@
                        class="custom_nav_bar">
 
               <v-toolbar-title style="cursor: pointer; color:white;">
-                Telegraph
+                <router-link style="color: white" v-bind:to="{name:'Home'}">
+                  Telegraph
+                </router-link>
+
               </v-toolbar-title>
 
               <v-spacer></v-spacer>

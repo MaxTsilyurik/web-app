@@ -3,7 +3,8 @@
       class="my-5"
       color="white"
       dark
-      max-width="700px"
+      max-width="703px"
+      style="border-radius: 2px"
   >
     <v-card-title>
       <v-icon
@@ -12,14 +13,13 @@
           class="material-icons"
           STYLE="color: #13547a"
       >
-          near_me
+        near_me
       </v-icon>
       <span class="title" style="color: black">Telegraph</span>
     </v-card-title>
 
     <v-card-text class="headline" style="color: black">
-      "Turns out semicolon-less ;ld';sald';asld is easier and safer in TS because most gotcha edge cases are type invalid as
-      well."
+      {{post.message}}
     </v-card-text>
 
     <v-card-actions>
@@ -33,7 +33,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title style="color: black">Evan You</v-list-item-title>
+          <v-list-item-title style="color: black">{{post.user.name }} {{post.user.secondName}}</v-list-item-title>
         </v-list-item-content>
 
         <v-row
@@ -43,12 +43,8 @@
           <v-icon class="mr-1" color="black">
             mdi-heart
           </v-icon>
-          <span class="subheading mr-2" style="color: black">256</span>
+          <span class="subheading mr-2" style="color: black">{{post.like}}</span>
           <span class="mr-1">·</span>
-          <v-icon class="mr-1" style="color: black">
-            mdi-share-variant
-          </v-icon>
-          <span class="subheading" style="color: black">45</span>
         </v-row>
       </v-list-item>
     </v-card-actions>
@@ -56,10 +52,10 @@
 </template>
 
 <script>
+
 export default {
-  name: "PostCart"
-
-
+  name: "PostCart",
+  props: ['post'],
 }
 </script>
 

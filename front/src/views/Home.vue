@@ -1,57 +1,85 @@
 <template>
-    <v-container>
-      <v-row>
+  <v-container>
+    <v-row v-if="userLogin.isAuth()">
         <v-col class="col col-2 navigable my-5">
-          <div class="v-sheet theme--light rounded-lg">
-            <div role="list" class="v-list v-sheet theme--light transparent">
-              <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light">
-                <div class="v-list-item__content">
-                  <div class="v-list-item__title"> Моя страница</div>
-                </div>
-              </div>
-              <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light">
-                <div class="v-list-item__content">
-                  <div class="v-list-item__title"> Сообщения</div>
-                </div>
-              </div>
-              <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light">
-                <div class="v-list-item__content">
-                  <div class="v-list-item__title">Друзья</div>
-                </div>
-              </div>
-              <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light">
-                <div class="v-list-item__content">
-                  <div class="v-list-item__title"> Группы</div>
-                </div>
-              </div>
-              <hr role="separator" aria-orientation="horizontal" class="my-2 v-divider theme--light">
-              <div tabindex="0" role="listitem"
-                   class="v-list-item v-list-item--link theme--light grey--text text--lighten-4">
-                <div class="v-list-item__content">
-                  <router-link v-bind:to="{name: 'Messages'}">
-                    <div class="v-list-item__title"> Выход</div>
-                  </router-link>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Navigable></Navigable>
         </v-col>
         <v-col class="col">
-          <PostCart></PostCart>
+          <PostForm></PostForm>
+          <div v-for="(item, index) in items" :key="index">
+            <PostCart v-bind:post="item"></PostCart>
+          </div>
+
         </v-col>
-      </v-row>
-    </v-container>
+    </v-row >
+    <LoginLayout v-else>
+      <Login/>
+    </LoginLayout>
+  </v-container>
 </template>
 
 <script>
 import PostCart from "@/components/posts/PostCart";
+import PostForm from "@/components/posts/PostForm";
+import Navigable from "@/components/navigable/Navigable";
+import User from "@/components/users/user";
+import Login from "@/views/Login";
 
 export default {
   name: "Home",
 
+  data() {
+    return {
+      items: [
+        {
+          user: {
+            name: 'Max',
+            secondName: 'Maxim'
+          },
+          message: 'Hello world',
+          like: 220
+        },
+        {
+          user: {
+            name: 'Alex',
+            secondName: 'Alex'
+          },
+          message: 'Hello world',
+          like: 129
+        },
+        {
+          user: {
+            name: 'Wycc',
+            secondName: 'Maxim'
+          },
+          message: 'Новое видосик',
+          like: 11
+        },
+        {
+          user: {
+            name: 'Цилюрик',
+            secondName: 'Максим'
+          },
+          message: 'Мне не нравится JavaScript',
+          like: 11
+        },
+      ],
+      userLogin: User
+    }
+  },
   components: {
+    Login,
+    Navigable,
+    PostForm,
     PostCart,
   },
+
+  methods: {
+    logout() {
+      User.logout()
+      //location.reload()
+    }
+  }
 }
 </script>
 

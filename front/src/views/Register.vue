@@ -88,8 +88,10 @@ export default {
     submit(e) {
       if (this.validate()) {
         const result = {
-          name: 'Иван Иванов',
+          name: 'Иван',
+          secondName: 'Иванов',
           email: 'ivan@ya.ru',
+          gender : this.gender[0],
           accessToken: 'jsdlf732649823709!ew98r#$432'
         }
         User.login(result)
