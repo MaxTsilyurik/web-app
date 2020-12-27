@@ -19,7 +19,6 @@ import PostCart from "@/components/posts/PostCart";
 import PostForm from "@/components/posts/PostForm";
 import Navigable from "@/components/navigable/Navigable";
 import User from "@/components/users/user";
-import user from "@/components/users/user";
 import router from "@/route";
 
 export default {
@@ -33,6 +32,7 @@ export default {
             name: 'Max',
             secondName: 'Maxim'
           },
+          id: 1,
           message: 'Hello world',
           like: 220
         },
@@ -41,6 +41,7 @@ export default {
             name: 'Alex',
             secondName: 'Alex'
           },
+          id: 2,
           message: 'Hello world',
           like: 129
         },
@@ -49,14 +50,17 @@ export default {
             name: 'Wycc',
             secondName: 'Maxim'
           },
+          id: 3,
           message: 'Новое видосик',
           like: 11
         },
         {
           user: {
+            id: 1,
             name: 'Цилюрик',
             secondName: 'Максим'
           },
+          id: 4,
           message: 'Мне не нравится JavaScript',
           like: 11
         },
@@ -72,15 +76,14 @@ export default {
 
   methods: {
     logout() {
-      User.logout()
-      //location.reload()
+      localStorage.clear()
+      console.log(localStorage.getItem('user_id'))
     },
     isOAuth() {
-      console.log(user)
-      if (!user.isAuth()) {
-        router.push({name: 'Login', params: {}})
+      if (localStorage.getItem('user_id') == null){
+        router.push({name: 'Login'})
       }
-      return true
+        return true
     }
   }
 }

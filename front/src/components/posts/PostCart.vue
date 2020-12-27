@@ -2,7 +2,6 @@
   <v-card
       class="my-5"
       color="white"
-      dark
       max-width="703px"
       style="border-radius: 2px"
   >
@@ -24,38 +23,43 @@
 
     <v-card-actions>
       <v-list-item class="grow">
-        <v-list-item-avatar color="grey darken-3">
-          <v-img
-              class="elevation-6"
-              alt=""
-              src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-          ></v-img>
-        </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title style="color: black">{{post.user.name }} {{post.user.secondName}}</v-list-item-title>
+          <v-list-item-title style="color: black" v-on:click="toProfile(post.user.id)">{{post.user.name }} {{post.user.secondName}}</v-list-item-title>
         </v-list-item-content>
 
         <v-row
             align="center"
             justify="end"
         >
-          <v-icon class="mr-1" color="black">
-            mdi-heart
-          </v-icon>
-          <span class="subheading mr-2" style="color: black">{{post.like}}</span>
+          <v-btn icon @click="del" small>
+            <v-icon>delete</v-icon>
+          </v-btn>
           <span class="mr-1">·</span>
         </v-row>
       </v-list-item>
     </v-card-actions>
+    <CommentsList
+        :comments="post.comments"
+        :postId = "post.id"
+    ></CommentsList>
   </v-card>
 </template>
 
 <script>
 
+import CommentsList from "@/components/posts/CommentsList";
+import router from "@/route";
+
 export default {
   name: "PostCart",
+  components: { CommentsList },
   props: ['post'],
+  methods:{
+    toProfile(userId) {
+      router.push({name: 'User', params: {id: userId}})
+    }
+  }
 }
 </script>
 

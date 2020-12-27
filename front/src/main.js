@@ -6,6 +6,7 @@ import Vuetify from "vuetify";
 import router from "./route"
 import DefaultLayout from '@/layouts/default-layout'
 import LoginLayout from '@/layouts/login-layout'
+import Axios from "axios";
 
 Vue.config.productionTip = false
 
@@ -19,6 +20,10 @@ Vue.use(Vuetify, {
 
 Vue.component('default-layout', DefaultLayout);
 Vue.component('loginLayout', LoginLayout);
+
+Vue.prototype.$http = Axios.create({
+  baseURL: 'http://localhost:8080/api'
+});
 
 new Vue({
   router,

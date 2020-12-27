@@ -1,7 +1,7 @@
 <template>
   <div class="v-sheet">
     <div role="list" class="v-list v-sheet theme--light transparent">
-      <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light" v-on:click="toProfile(user.id)">
+      <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light" v-on:click="toProfile()">
         <div class="v-list-item__content">
           <div class="v-list-item__title"> Моя страница</div>
         </div>
@@ -11,11 +11,6 @@
           <div class="v-list-item__title">Новости</div>
         </div>
       </div>
-<!--      <div tabindex="0" role="listitem" class="v-list-item v-list-item&#45;&#45;link theme&#45;&#45;light">
-        <div class="v-list-item__content">
-          <div class="v-list-item__title">Друзья</div>
-        </div>
-      </div>-->
       <hr role="separator" aria-orientation="horizontal" class="my-2 v-divider theme--light">
       <div tabindex="0" role="listitem"
            class="v-list-item v-list-item--link theme--light grey--text text--lighten-4">
@@ -42,14 +37,16 @@ export default {
   },
   methods: {
     logout() {
-      UserAuth.logout()
-      //location.reload()
+      localStorage.clear()
+      router.push({name: "Login"})
     },
     toNews() {
       router.push({name: 'Home', params: {}})
     },
-    toProfile(userId) {
-      router.push({name: 'User', params: {id: userId}})
+    toProfile() {
+      let id = localStorage.getItem('user_id')
+          .substr(1,localStorage.getItem('user_id').length-2)
+      router.push({name: 'User', params: {id: id}})
     }
   }
 }

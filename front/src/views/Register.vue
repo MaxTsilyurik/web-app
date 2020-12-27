@@ -93,19 +93,29 @@ export default {
   },
   methods: {
     submit() {
+      let genderEnum
+      if (this.formGender === 'Мужской'){
+        genderEnum = 'MAN'
+      }else {
+        genderEnum = 'WOMAN'
+      }
+
       const result = {
-        id: null,
         firstName: this.formName,
         secondName: this.formSecondName,
         patronymic: '',
+        phone: '',
         authority: 'USER',
         username: this.formEmail,
-        gender: this.formGender,
+        gender: genderEnum,
         password: this.formPassword,
-        accessToken: 'jsdlf732649823709!ew98r#$432'
       }
-      User.login(result)
       console.log(result)
+      this.$http.post('/register', result)
+          .then(() => {
+            router.push({name: 'Login'})
+          })
+          .catch((error) => alert(error.response.data.statusText))
     },
     isOAuth(){
       if (!this.user.isAuth()){

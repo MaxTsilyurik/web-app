@@ -17,12 +17,6 @@
             class="pa-0"
             cols="12"
         >
-          <div>
-            <img class="b-avatar-img"
-                 v-bind:src="user.image"
-                 width="200"
-                 height="200">
-          </div>
         </v-col>
         <v-col class="py-0">
           <v-list-item
@@ -31,11 +25,11 @@
           >
             <v-list-item-content>
               <v-list-item-title class="title">
-                {{user.name}} {{user.secondName}}
+                {{ user.firstName }} {{ user.secondName }}
               </v-list-item-title>
-              <v-list-item-subtitle >
-                <p>Возраст: {{user.age}}</p>
-                <p>Пол: {{user.gender}}</p>
+              <v-list-item-subtitle>
+                <p>Пол: {{ user.gender }}</p>
+                <p>email: {{ user.username }}</p>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -46,19 +40,15 @@
 </template>
 
 <script>
-import User from "./user"
 export default {
-name: "ProfileCard",
+  name: "ProfileCard",
+  props: ['user'],
   data() {
-    console.log(User.isAuth())
-    return {
-      user: User
-    }
+    return {}
   },
   methods: {
     logout() {
-      User.logout()
-      //location.reload()
+      localStorage.clear();
     }
   }
 }

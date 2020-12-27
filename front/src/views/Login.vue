@@ -1,6 +1,6 @@
 <template>
-  <v-container v-if="isOAuth">
-    <form class="form-login" @submit="submit">
+  <v-container v-if="isOAuth()">
+    <form class="form-login" @submit.prevent = "submit">
       <h3 class="text-center">Авторизация</h3>
       <v-text-field
           v-model="email"
@@ -28,7 +28,6 @@
             color="primary"
             type="submit"
             text
-            @click="submit"
         >
           Войти
         </v-btn>
@@ -46,9 +45,7 @@
 </template>
 
 <script>
-import User from '@/components/users/user'
-import user from "@/components/users/user";
-import router from "@/route";
+import querystring from "querystring";
 
 export default {
   name: "Login",
@@ -56,7 +53,6 @@ export default {
   data() {
     return {
       show1: false,
-      user: User,
       email: '',
       password: '',
       rules: {
@@ -72,19 +68,26 @@ export default {
   methods: {
     submit() {
       if (this.validate()) {
-        const result = {
-          id: 1,
-          name: 'Иван',
-          secondName: 'Иванов',
-          age: 20,
-          gender: 'Мужской',
-          email: 'ivan@ya.ru',
-          image: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-          accessToken: 'jsdlf732649823709!ew98r#$432'
-        }
-        User.login(result)
-        router.push({name: "Home"})
-        console.log(User)
+        const formData = {
+          username: this.email,
+          password: this.password,
+          grant_type: 'password'
+        };
+        this.$http.post('/oauth/token', querystring.stringify(formData), {
+          headers: {
+            'authorization': 'Basic dWk6bXJJVG1ndnpSWE9a',
+            "Access-Control-Allow-Origin": "*",
+            'Content-Type': 'application/x-www-form-urlencoded',
+            "cache-control": "no-cache"
+          }, baseURL: 'http://localhost:8080/',
+        })
+            .then((response) => {
+              console.log(response.data)
+              localStorage.setItem('access_token', JSON.stringify(response.data.access_token))
+              localStorage.setItem('user_id', JSON.stringify(response.data.user_id))
+              this.$router.push({name: 'Home'})
+            })
+            .catch((error) => console.log(error))
       }
     },
     validate() {
@@ -97,14 +100,15 @@ export default {
       }
       return Object.keys(this.errors).length === 0
     },
-    isOAuth(){
-      console.log(user)
-      if (user.isAuth()){
-        router.push({name: 'Home', params: {}})
-      }
-      return false
+    isOAuth() {
+      console.log(localStorage.getItem('user_id'))
+       if (localStorage.getItem('user_id') == null){
+         return true
+       }else return false
     }
-  }
+  },
+
+
 }
 </script>
 
