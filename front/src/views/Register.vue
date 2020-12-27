@@ -1,38 +1,39 @@
 <template>
-  <v-container>
+  <v-container >
     <form class="form-login">
       <h3 class="text-center">Регистрация</h3>
       <v-text-field
           ref="name"
-          v-model="name"
-          :rules="[() => !!name || 'This field is required']"
+          v-model="formName"
+          :rules="[() => !!formName || 'Имя должно быть заполнено']"
           :error-messages="errors.name"
           label="Имя"
           required
       ></v-text-field>
       <v-text-field
           ref="name"
-          v-model="name"
-          :rules="[() => !!name || 'This field is required']"
+          v-model="formSecondName"
+          :rules="[() => !!formSecondName || 'Фамилия должна быть заполена']"
           :error-messages="errors.secondName"
           label="Фамилия"
           required
       ></v-text-field>
       <v-select
-          v-model="select"
-          :items="gender"
+          v-model="formGender"
+          :items="genders"
           :error-messages="errors.select"
           label="Пол"
           required
       ></v-select>
       <v-text-field
-          v-model="email"
+          v-model="formEmail"
+          :rules="emailRules"
           :error-messages="errors.email"
           label="E-mail"
           required
       ></v-text-field>
       <v-text-field
-          v-model="password"
+          v-model="formPassword"
           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="[rules.required, rules.min]"
           :type="show1 ? 'text' : 'password'"
@@ -62,66 +63,68 @@
 
 <script>
 import User from '@/components/users/user'
+import router from "@/route";
 
 export default {
   name: "Register",
 
   data() {
     return {
+      user: User,
       show1: false,
-      name: '',
-      secondName: '',
-      email: '',
-      password: '',
+      formName: '',
+      formSecondName: '',
+      formEmail: '',
+      formPassword: '',
       errors: {},
       rules: {
         min: v => v.length >= 8 || 'Min 8 characters',
       },
-      gender: [
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
+      genders: [
         'Мужской',
         'Женский'
       ],
-      checkbox: null,
+      formGender: ''
     }
   },
   methods: {
-    submit(e) {
-      if (this.validate()) {
-        const result = {
-          name: 'Иван',
-          secondName: 'Иванов',
-          email: 'ivan@ya.ru',
-          gender : this.gender[0],
-          accessToken: 'jsdlf732649823709!ew98r#$432'
-        }
-        User.login(result)
+    submit() {
+      const result = {
+        id: null,
+        firstName: this.formName,
+        secondName: this.formSecondName,
+        patronymic: '',
+        authority: 'USER',
+        username: this.formEmail,
+        gender: this.formGender,
+        password: this.formPassword,
+        accessToken: 'jsdlf732649823709!ew98r#$432'
       }
-      e.preventDefault()
+      User.login(result)
+      console.log(result)
     },
-    validate() {
-      this.errors = {}
-      if (this.email.trim().length === 0) {
-        this.errors.email = 'Заполните Email.'
+    isOAuth(){
+      if (!this.user.isAuth()){
+        router.push({name: 'Home', params: {}})
       }
-      if (this.password.trim().length === 0) {
-        this.errors.password = 'Заполните Пароль.'
-      }
-      return Object.keys(this.errors).length === 0
+
     }
   }
 }
 </script>
 
 <style scoped>
-.form-login{
-  /*background-color: white;*/
+.form-login {
   -ms-flex-align: center;
   align-items: center;
   width: 100%;
   max-width: 400px;
   padding: 15px;
   margin: auto;
-  /*border-radius: 15px;*/
   position: fixed;
   top: 50%;
   left: 50%;

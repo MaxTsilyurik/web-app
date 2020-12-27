@@ -40,6 +40,10 @@ const routes = [
         path: '/profile',
         name: 'User',
         component: ProfilePage
+    },
+    {
+        path: '*',
+        component: Home
     }
 
 

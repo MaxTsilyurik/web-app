@@ -1,12 +1,16 @@
 <template>
   <v-container class="login-layout">
-    <slot />
+    <slot/>
   </v-container>
 </template>
 
 <script>
+
 export default {
-name: "login-layout"
+  name: "login-layout",
+  data(){
+
+  }
 }
 </script>
 

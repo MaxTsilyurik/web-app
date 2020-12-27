@@ -1,8 +1,8 @@
 <template>
   <v-card
-      class="mx-auto"
-      max-width="700px"
-      tile
+      class="my-5"
+      max-width="703px"
+      style="margin: auto; padding: 10px; border-radius: 2px"
   >
     <v-img
         height="100%"

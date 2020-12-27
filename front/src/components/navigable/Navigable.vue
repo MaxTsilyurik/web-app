@@ -1,23 +1,21 @@
 <template>
-  <div class="v-sheet rounded-lg">
+  <div class="v-sheet">
     <div role="list" class="v-list v-sheet theme--light transparent">
-      <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light">
+      <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light" v-on:click="toProfile(user.id)">
         <div class="v-list-item__content">
-          <router-link v-bind:to="{name: 'User', param:{url: user.id}}">
-            <div class="v-list-item__title"> Моя страница</div>
-          </router-link>
+          <div class="v-list-item__title"> Моя страница</div>
         </div>
       </div>
-      <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light">
-        <router-link v-bind:to="{name: 'Home', param:{}}">
-          <div class="v-list-item__title"> Новости</div>
-        </router-link>
+      <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light" v-on:click="toNews">
+        <div class="v-list-item__content">
+          <div class="v-list-item__title">Новости</div>
+        </div>
       </div>
-      <div tabindex="0" role="listitem" class="v-list-item v-list-item--link theme--light">
+<!--      <div tabindex="0" role="listitem" class="v-list-item v-list-item&#45;&#45;link theme&#45;&#45;light">
         <div class="v-list-item__content">
           <div class="v-list-item__title">Друзья</div>
         </div>
-      </div>
+      </div>-->
       <hr role="separator" aria-orientation="horizontal" class="my-2 v-divider theme--light">
       <div tabindex="0" role="listitem"
            class="v-list-item v-list-item--link theme--light grey--text text--lighten-4">
@@ -32,19 +30,26 @@
 </template>
 
 <script>
-import User from "@/components/users/user";
+import UserAuth from "@/components/users/user";
+import router from "@/route";
 
 export default {
   name: "Navigable",
   data() {
     return {
-      user: User
+      user: UserAuth
     }
   },
   methods: {
     logout() {
-      User.logout()
+      UserAuth.logout()
       //location.reload()
+    },
+    toNews() {
+      router.push({name: 'Home', params: {}})
+    },
+    toProfile(userId) {
+      router.push({name: 'User', params: {id: userId}})
     }
   }
 }

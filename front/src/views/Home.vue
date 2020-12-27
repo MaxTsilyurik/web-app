@@ -1,20 +1,16 @@
 <template>
   <v-container>
-    <v-row v-if="userLogin.isAuth()">
-        <v-col class="col col-2 navigable my-5">
-          <Navigable></Navigable>
-        </v-col>
-        <v-col class="col">
-          <PostForm></PostForm>
-          <div v-for="(item, index) in items" :key="index">
-            <PostCart v-bind:post="item"></PostCart>
-          </div>
-
-        </v-col>
-    </v-row >
-    <LoginLayout v-else>
-      <Login/>
-    </LoginLayout>
+    <v-row v-if="isOAuth()">
+      <v-col class="col col-2 navigable my-5">
+        <Navigable></Navigable>
+      </v-col>
+      <v-col class="col">
+        <PostForm></PostForm>
+        <div v-for="(item, index) in items" :key="index">
+          <PostCart v-bind:post="item"></PostCart>
+        </div>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -23,7 +19,8 @@ import PostCart from "@/components/posts/PostCart";
 import PostForm from "@/components/posts/PostForm";
 import Navigable from "@/components/navigable/Navigable";
 import User from "@/components/users/user";
-import Login from "@/views/Login";
+import user from "@/components/users/user";
+import router from "@/route";
 
 export default {
   name: "Home",
@@ -68,7 +65,6 @@ export default {
     }
   },
   components: {
-    Login,
     Navigable,
     PostForm,
     PostCart,
@@ -78,6 +74,13 @@ export default {
     logout() {
       User.logout()
       //location.reload()
+    },
+    isOAuth() {
+      console.log(user)
+      if (!user.isAuth()) {
+        router.push({name: 'Login', params: {}})
+      }
+      return true
     }
   }
 }

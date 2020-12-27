@@ -8,7 +8,7 @@ export default {
     image: null,
 
     accessToken: null,
-    isAuth() {
+     isAuth()  {
         this.load()
         return this.accessToken !== null
     },

@@ -1,49 +1,54 @@
 <template>
-  <form class="form-login" @submit="submit">
-    <h3 class="text-center">Авторизация</h3>
-    <v-text-field
-        v-model="email"
-        :error-messages="errors.email"
-        label="E-mail"
-        required
-    ></v-text-field>
-    <v-text-field
-        v-model="password"
-        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-        :rules="[rules.required, rules.min]"
-        :type="show1 ? 'text' : 'password'"
-        name="input-10-1"
-        label="Пароль"
-        hint="At least 8 characters"
-        counter
-        @click:append="show1 = !show1"
-    ></v-text-field>
-    <v-card-actions>
-      <v-btn
-          style="position: relative;
+  <v-container v-if="isOAuth">
+    <form class="form-login" @submit="submit">
+      <h3 class="text-center">Авторизация</h3>
+      <v-text-field
+          v-model="email"
+          :rules="emailRules"
+          :error-messages="errors.email"
+          label="E-mail"
+          required
+      ></v-text-field>
+      <v-text-field
+          v-model="password"
+          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="[rules.required, rules.min]"
+          :type="show1 ? 'text' : 'password'"
+          name="input-10-1"
+          label="Пароль"
+          hint="At least 8 characters"
+          counter
+          @click:append="show1 = !show1"
+      ></v-text-field>
+      <v-card-actions>
+        <v-btn
+            style="position: relative;
                 left: 50%;
                 transform: translate(-50%, 0);"
-          color="primary"
-          type="submit"
-          text
-          @click="submit"
-      >
-        Войти
-      </v-btn>
-    </v-card-actions>
-    <p class="mt-5 mb-3 text-muted text-center">
-      <router-link v-bind:to="{name: 'Register'}">
-        Нет аккаунта?
-      </router-link>
-    </p>
+            color="primary"
+            type="submit"
+            text
+            @click="submit"
+        >
+          Войти
+        </v-btn>
+      </v-card-actions>
+      <p class="mt-5 mb-3 text-muted text-center">
+        <router-link v-bind:to="{name: 'Register'}">
+          Нет аккаунта?
+        </router-link>
+      </p>
 
-    <p class="mt-5 mb-3 text-muted text-center">&copy; telegraph 2020</p>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; telegraph 2020</p>
 
-  </form>
+    </form>
+  </v-container>
 </template>
 
 <script>
 import User from '@/components/users/user'
+import user from "@/components/users/user";
+import router from "@/route";
 
 export default {
   name: "Login",
@@ -51,16 +56,21 @@ export default {
   data() {
     return {
       show1: false,
+      user: User,
       email: '',
       password: '',
       rules: {
         min: v => v.length >= 8 || 'Min 8 characters',
       },
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
       errors: {}
     }
   },
   methods: {
-    submit(e) {
+    submit() {
       if (this.validate()) {
         const result = {
           id: 1,
@@ -73,9 +83,9 @@ export default {
           accessToken: 'jsdlf732649823709!ew98r#$432'
         }
         User.login(result)
+        router.push({name: "Home"})
         console.log(User)
-       }
-      e.preventDefault()
+      }
     },
     validate() {
       this.errors = {}
@@ -86,6 +96,13 @@ export default {
         this.errors.password = 'Заполните Пароль.'
       }
       return Object.keys(this.errors).length === 0
+    },
+    isOAuth(){
+      console.log(user)
+      if (user.isAuth()){
+        router.push({name: 'Home', params: {}})
+      }
+      return false
     }
   }
 }

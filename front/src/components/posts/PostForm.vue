@@ -3,32 +3,40 @@
     <v-text-field
         class="mx-4"
         placeholder="Что нового?"
-        v-model="text"
         style="max-width: 700px"
-        @click="expand = !expand"
+        readonly
+        @click="expandMethods"
     />
     <v-expand-transition>
       <v-card
           v-show="expand"
-          height="110px"
+          height="auto"
           width="700px"
           class="mx-4"
       >
-        <v-file-input
-            class="mx-6"
-            counter
-            multiple
-            width="690px"
-        ></v-file-input>
+        <v-textarea
+            color="teal"
+            style="padding: 10px; margin: 10px"
+            v-model="msg"
+            autofocus
+            @keyup.enter.exact="createMessages"
+            @keydown.enter.shift.exact="newline"
+        >
+          <template v-slot:label>
+            <div>
+              Сообщение
+            </div>
+          </template>
+        </v-textarea>
         <v-btn
             style="position: relative;
                 left: 50%;
-                transform: translate(-50%, 0);"
+                transform: translate(-50%, 0);
+                padding: 10px; margin-bottom: 10px"
             color="primary"
             type="submit"
             text
-            @click="submit"
-        >
+            @click.prevent="createMessages">
           Отправить
         </v-btn>
       </v-card>
@@ -40,10 +48,30 @@
 <script>
 export default {
   name: "PostForm",
-  data (){
+  data() {
     return {
+      msg: '',
       expand: false
     }
+  },
+  methods: {
+    expandMethods() {
+      this.expand = !this.expand
+      this.msg = ''
+    },
+
+    newline() {
+    },
+    createMessages() {
+      if (this.msg !== '' || !this.msg.trim()) {
+        const submissionData = {
+          id: null,
+          message: this.msg,
+        }
+        this.expandMethods()
+        console.log(submissionData)
+      }
+    },
   }
 }
 </script>
