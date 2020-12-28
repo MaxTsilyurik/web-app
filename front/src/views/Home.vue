@@ -18,7 +18,6 @@
 import PostCart from "@/components/posts/PostCart";
 import PostForm from "@/components/posts/PostForm";
 import Navigable from "@/components/navigable/Navigable";
-import User from "@/components/users/user";
 import router from "@/route";
 
 export default {
@@ -26,46 +25,7 @@ export default {
 
   data() {
     return {
-      items: [
-        {
-          user: {
-            name: 'Max',
-            secondName: 'Maxim'
-          },
-          id: 1,
-          message: 'Hello world',
-          like: 220
-        },
-        {
-          user: {
-            name: 'Alex',
-            secondName: 'Alex'
-          },
-          id: 2,
-          message: 'Hello world',
-          like: 129
-        },
-        {
-          user: {
-            name: 'Wycc',
-            secondName: 'Maxim'
-          },
-          id: 3,
-          message: 'Новое видосик',
-          like: 11
-        },
-        {
-          user: {
-            id: 1,
-            name: 'Цилюрик',
-            secondName: 'Максим'
-          },
-          id: 4,
-          message: 'Мне не нравится JavaScript',
-          like: 11
-        },
-      ],
-      userLogin: User
+      items: null
     }
   },
   components: {
@@ -73,7 +33,21 @@ export default {
     PostForm,
     PostCart,
   },
+  created() {
+    let str = localStorage.getItem('access_token')
+        .substr(1,localStorage.getItem('access_token').length-2)
+    this.$http.get(`/api/v1/messages/`, {
+      headers: {
+        'Authorization': 'Bearer ' + str,
+      }, baseURL: 'http://localhost:8080',
+    })
+        .then((response) => {
+          console.log(response.data)
+          this.items = {...response.data}
+        })
+    console.log(this.items)
 
+  },
   methods: {
     logout() {
       localStorage.clear()

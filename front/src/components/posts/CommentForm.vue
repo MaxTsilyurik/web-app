@@ -33,7 +33,17 @@ export default {
           comment: this.text,
           messageId: this.postId
         }
-        console.log(result)
+        let str = localStorage.getItem('access_token')
+            .substr(1,localStorage.getItem('access_token').length-2)
+        this.$http.post(`/api/v1/comments`, result,{
+          headers: {
+            'Authorization': 'Bearer ' + str,
+          }, baseURL: 'http://localhost:8080',
+        },)
+            .then((response) => {
+              console.log(response.data)
+            })
+        location.reload()
       }
     }
   }

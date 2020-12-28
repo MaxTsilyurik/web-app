@@ -25,14 +25,14 @@
       <v-list-item class="grow">
 
         <v-list-item-content>
-          <v-list-item-title style="color: black" v-on:click="toProfile(post.user.id)">{{post.user.name }} {{post.user.secondName}}</v-list-item-title>
+          <v-list-item-title style="color: black" v-on:click="toProfile(post.author.id)">{{post.author.firstName}} {{post.author.secondName}}</v-list-item-title>
         </v-list-item-content>
 
         <v-row
             align="center"
             justify="end"
         >
-          <v-btn icon @click="del" small>
+          <v-btn icon v-if="check()" @click="del" small>
             <v-icon>delete</v-icon>
           </v-btn>
           <span class="mr-1">·</span>
@@ -58,6 +58,25 @@ export default {
   methods:{
     toProfile(userId) {
       router.push({name: 'User', params: {id: userId}})
+    },
+    del(){
+      let str = localStorage.getItem('access_token')
+          .substr(1,localStorage.getItem('access_token').length-2)
+      this.$http.delete(`/api/v1/messages/${this.post.id}`,{
+        headers: {
+          'Authorization': 'Bearer ' + str,
+        }, baseURL: 'http://localhost:8080',
+      },)
+          .then((response) => {
+            console.log(response.data)
+          })
+      location.reload()
+
+    },
+    check(){
+      return this.post.author.id === localStorage.getItem('user_id')
+          .substr(1,localStorage.getItem('user_id').length-2)
+
     }
   }
 }

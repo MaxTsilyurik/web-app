@@ -68,10 +68,24 @@ export default {
           id: null,
           message: this.msg,
         }
-        this.expandMethods()
         console.log(submissionData)
+
+        let str = localStorage.getItem('access_token')
+            .substr(1,localStorage.getItem('access_token').length-2)
+        this.$http.post(`/api/v1/messages`, submissionData,{
+          headers: {
+            'Authorization': 'Bearer ' + str,
+          }, baseURL: 'http://localhost:8080',
+        },)
+            .then((response) => {
+              console.log(response.data)
+            })
+        location.reload()
+        this.expandMethods()
+
       }
     },
+
   }
 }
 </script>

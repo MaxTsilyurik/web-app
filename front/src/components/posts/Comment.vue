@@ -1,7 +1,7 @@
 <template>
   <v-list-tile>
     <v-list-tile-content>
-      <v-list-item-title v-html="user.firstName+' '+user.secondName" v-on:click="toUser()"></v-list-item-title>
+      <v-list-item-title v-html="comment.author.firstName+' '+comment.author.secondName" v-on:click="toUser()"></v-list-item-title>
       <v-list-item-subtitle v-html="comment.comment"></v-list-item-subtitle>
     </v-list-tile-content>
   </v-list-tile>
@@ -21,11 +21,10 @@ export default {
   },
   methods:{
    toUser(){
-     router.push({name: 'User', params: {id: this.user.id}})
+     router.push({name: 'User', params: {id: this.comment.author.id}})
    },
     created() {
-      const userData = JSON.parse(this.comment.userDto);
-      this.user = { ...userData }
+
     }
 
   }
