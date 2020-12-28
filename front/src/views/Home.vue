@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row v-if="isOAuth()">
+    <v-row v-if="user.isOAuth()">
       <v-col class="col col-2 navigable my-5">
         <Navigable></Navigable>
       </v-col>
@@ -18,13 +18,14 @@
 import PostCart from "@/components/posts/PostCart";
 import PostForm from "@/components/posts/PostForm";
 import Navigable from "@/components/navigable/Navigable";
-import router from "@/route";
+import User from "@/components/users/user"
 
 export default {
   name: "Home",
 
   data() {
     return {
+      user: User,
       items: null
     }
   },
@@ -35,7 +36,7 @@ export default {
   },
   created() {
     let str = localStorage.getItem('access_token')
-        .substr(1,localStorage.getItem('access_token').length-2)
+        .substr(1, localStorage.getItem('access_token').length - 2)
     this.$http.get(`/api/v1/messages/`, {
       headers: {
         'Authorization': 'Bearer ' + str,
@@ -50,14 +51,7 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.clear()
-      console.log(localStorage.getItem('user_id'))
-    },
-    isOAuth() {
-      if (localStorage.getItem('user_id') == null){
-        router.push({name: 'Login'})
-      }
-        return true
+      this.user.logout()
     }
   }
 }

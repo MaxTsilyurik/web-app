@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row v-if="isOAuth()">
+    <v-row v-if="userLocal.isOAuth()">
       <v-col class="col col-2 navigable my-5">
         <Navigable></Navigable>
       </v-col>
@@ -18,6 +18,7 @@
 import ProfileCard from "@/components/users/ProfileCard";
 import Navigable from "@/components/navigable/Navigable";
 import Login from "@/views/Login";
+import User from "@/components/users/user";
 
 export default {
   name: "Profile",
@@ -25,6 +26,7 @@ export default {
 
   data() {
     return {
+      userLocal: User,
       access_token: localStorage.getItem('access_token'),
       user: null
     }
@@ -48,11 +50,7 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.clear()
-      //location.reload()
-    },
-    isOAuth() {
-      return localStorage.getItem('user_id') !== null;
+      this.userLocal.logout()
     }
   },
 }

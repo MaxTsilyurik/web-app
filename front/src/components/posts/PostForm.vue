@@ -63,7 +63,7 @@ export default {
     newline() {
     },
     createMessages() {
-      if (this.msg !== '' || !this.msg.trim()) {
+      if (this.msg !== '' || !this.msg.trim().length > 0) {
         const submissionData = {
           id: null,
           message: this.msg,
